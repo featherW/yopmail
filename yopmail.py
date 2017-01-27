@@ -86,14 +86,14 @@ class Yopmail(object):
 
         self.mailids=results
 
-    def r8(self, mail_idx=None):
+    def r8(self, mail_idx=None, page=1):
         if mail_idx is None:
             mailid = ''
         else:
             mailid = self.mailids[mail_idx]
         params = {
             'login':self.username,
-            'p':'1', # page
+            'p':str(page), # page
             'd':'',  # mailid? to delete?
             'ctrl':mailid, #mailid or ''
             'scrl':'', #always?
@@ -140,12 +140,13 @@ class TestSomething(unittest.TestCase):
 def main(username):
     em = Yopmail(username)
     em.login()
-    for idx, _id in enumerate(em):
+    for _id in em:
         print '--------------------------------------'
         resp = em.fetch(_id)
         with open(username+'_'+str(_id)+".html", "wb") as f:
             try:
                 f.write(resp.text)
+                print repr(resp.text)[:30],'..'
             except UnicodeEncodeError, e:
                 try:
                     f.write(resp.text.encode('utf-8'))
@@ -162,4 +163,5 @@ if __name__=="__main__":
         main(sys.argv[1])
     except:
         print 'Usage: python yopmail.py email_user'
+        print
         raise
