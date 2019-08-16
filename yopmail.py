@@ -40,7 +40,7 @@ class Yopmail(object):
 
     def r2(self):
         self.extract_yp(
-            self.request('http://www.yopmail.com/es/'))
+            self.request('http://www.yopmail.com/zh/'))
 
     def add_localtime(self):
         now = datetime.datetime.now().time()
@@ -54,7 +54,7 @@ class Yopmail(object):
         #yp = self.jar.get("yp", domain="yopmail.com")
         data = {'yp': self.yp, 'login': self.username}
         rq = self.ses.post(
-            'http://www.yopmail.com/es/',
+            'http://www.yopmail.com/zh/',
             data,
             cookies=self.jar)
         # print rq.status_code
@@ -113,7 +113,7 @@ class Yopmail(object):
             'id': "",
         }
         self.extract_inbox(
-            self.request("http://www.yopmail.com/es/inbox.php", params=params))
+            self.request("http://www.yopmail.com/zh/inbox.php", params=params))
 
     def fetch(self, mail_idx):
         if mail_idx is None:
@@ -123,7 +123,7 @@ class Yopmail(object):
         params = {'b': self.username,
                   'id': mailid}  # mailid 'me_ZGpjZGV1ZwRkZwD0ZQNjAmx0AmpkAj=='
         return self.request(
-            'http://www.yopmail.com/es/m.php', params=params)
+            'http://www.yopmail.com/zh/m.php', params=params)
 
     def __iter__(self):
         return iter(self.mailids.keys())
