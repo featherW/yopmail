@@ -79,7 +79,7 @@ class Yopmail(object):
                 <span class=\"lmh\">14:33</span>"""
         bs = BeautifulSoup(req.text, 'html.parser')
         results = {}
-        for idx in xrange(10):
+        for idx in range(10):
             div_mX = bs.find('div', {'class': 'm', 'id': 'm%d' % idx})
             if div_mX is None:
                 continue
@@ -105,7 +105,7 @@ class Yopmail(object):
             'yf': '005',
             'yp': self.yp,
             'yj': self.yj,
-            'v': "2.6",
+            'v': "2.9",
             'r_c': '',  # ""
             # idaff / sometimes "none" / nextmailid='last' / mailid =
             # id('m%d'%mail_nr)
@@ -136,12 +136,14 @@ class Yopmail(object):
         return self
 
 
+"""
 class TestSomething(unittest.TestCase):
     def test_yj_re(self):
         value = 'QBQVkAQVmZmZ4BQR0ZwNkAN'
         sample = "value+'&yj=QBQVkAQVmZmZ4BQR0ZwNkAN&v='"
         self.assertIsNotNone(Yopmail.YJ_RE.match(sample))
         self.assertEqual(Yopmail.YJ_RE.match(sample).groups()[0], value)
+"""
 
 
 def main(username):
