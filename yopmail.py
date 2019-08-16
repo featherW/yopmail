@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import unittest
 import time
 
@@ -122,7 +123,7 @@ class Yopmail(object):
         params = {'b': self.username,
                   'id': mailid}  # mailid 'me_ZGpjZGV1ZwRkZwD0ZQNjAmx0AmpkAj=='
         return self.request(
-            'http://www.yopmail.com/es/mail.php', params=params)
+            'http://www.yopmail.com/es/m.php', params=params)
 
     def __iter__(self):
         return iter(self.mailids.keys())
@@ -154,7 +155,7 @@ def main(username):
         resp = em.fetch(_id)
         with open(username + '_' + str(_id) + ".html", "wb") as f:
             try:
-                f.write(resp.text)
+                f.write(resp.content)
                 print(repr(resp.text)[:30], '..')
             except UnicodeEncodeError as e:
                 try:
@@ -168,4 +169,4 @@ def main(username):
         time.sleep(1)
 
 if __name__ == "__main__":
-    main("demo")
+    main("test")
