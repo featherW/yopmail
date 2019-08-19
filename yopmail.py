@@ -78,6 +78,7 @@ class Yopmail(object):
                 <div   class=\"um\"><a class=\"lm\" href=\"mail.php?b=pelado&id=me_ZGpjZGVkZGpmZmZ2ZQNjAmZ2AwtjBN==\">
                 <span class=\"lmfd\">
                 <span class=\"lmh\">14:33</span>"""
+        req.encoding = "utf-8"
         bs = BeautifulSoup(req.text, 'html.parser')
         results = {}
         for idx in range(10):
@@ -85,8 +86,8 @@ class Yopmail(object):
             if div_mX is None:
                 continue
             a = div_mX.find('a', {'class': 'lm'})
-            date = div_mX.find('span', {'class': 'lmh'})
-            title = div_mX.find('span', {'class': 'lmf'})
+            date = div_mX.find('span', {'class': 'lmh'}).text
+            title = div_mX.find('span', {'class': 'lmf'}).text
 
             href = a['href'].rsplit('&id=', 1)[1]
             results[idx] = {"id": href, "time": date, "title": title}
@@ -130,6 +131,9 @@ class Yopmail(object):
     def __iter__(self):
         return iter(self.mailids.keys())
 
+    def __getitem__(self, item):
+        return self.mailids[item]
+
     def login(self):
         self.r1()
         self.r2()
@@ -171,4 +175,4 @@ def main(username):
         time.sleep(1)
 
 if __name__ == "__main__":
-    main("test")
+    main("demo0011")
