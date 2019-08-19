@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
-import unittest
 import time
+import collections
 
 from bs4 import BeautifulSoup
 import requests
@@ -80,7 +80,7 @@ class Yopmail(object):
                 <span class=\"lmh\">14:33</span>"""
         req.encoding = "utf-8"
         bs = BeautifulSoup(req.text, 'html.parser')
-        results = {}
+        results = collections.OrderedDict()
         for idx in range(10):
             div_mX = bs.find('div', {'class': 'm', 'id': 'm%d' % idx})
             if div_mX is None:
@@ -175,4 +175,4 @@ def main(username):
         time.sleep(1)
 
 if __name__ == "__main__":
-    main("demo0011")
+    main("test")
