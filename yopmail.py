@@ -85,9 +85,11 @@ class Yopmail(object):
             if div_mX is None:
                 continue
             a = div_mX.find('a', {'class': 'lm'})
+            date = div_mX.find('span', {'class': 'lmh'})
+            title = div_mX.find('span', {'class': 'lmf'})
 
             href = a['href'].rsplit('&id=', 1)[1]
-            results[idx] = href
+            results[idx] = {"id": href, "time": date, "title": title}
 
         self.mailids = results
 
@@ -95,7 +97,7 @@ class Yopmail(object):
         if mail_idx is None:
             mailid = ''
         else:
-            mailid = self.mailids[mail_idx]
+            mailid = self.mailids[mail_idx]["id"]
         params = {
             'login': self.username,
             'p': str(page),  # page
@@ -119,7 +121,7 @@ class Yopmail(object):
         if mail_idx is None:
             mailid = ''
         else:
-            mailid = self.mailids[mail_idx]
+            mailid = self.mailids[mail_idx]["id"]
         params = {'b': self.username,
                   'id': mailid}  # mailid 'me_ZGpjZGV1ZwRkZwD0ZQNjAmx0AmpkAj=='
         return self.request(
