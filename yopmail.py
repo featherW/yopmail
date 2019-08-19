@@ -132,7 +132,12 @@ class Yopmail(object):
         return iter(self.mailids.keys())
 
     def __getitem__(self, item):
-        return self.mailids[item]
+        if isinstance(item, int):
+            return self.mailids[item]
+        if isinstance(item, slice):
+            slicedkeys = list(self.mailids.keys())[item]
+            return {k: self.mailids[k] for k in slicedkeys}
+        raise TypeError
 
     def login(self):
         self.r1()
