@@ -87,10 +87,11 @@ class Yopmail(object):
                 continue
             a = div_mX.find('a', {'class': 'lm'})
             date = div_mX.find('span', {'class': 'lmh'}).text
-            title = div_mX.find('span', {'class': 'lmf'}).text
+            sender = div_mX.find('span', {'class': 'lmf'}).text
+            title = div_mX.find('span', {'class': 'lms'}).text
 
             href = a['href'].rsplit('&id=', 1)[1]
-            results[idx] = {"id": href, "time": date, "title": title}
+            results[idx] = {'id': href, 'time': date, 'title': title, 'sender': sender}
 
         self.mailids = results
 
